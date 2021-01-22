@@ -21,6 +21,6 @@ dataSources:
         - name: SLP
           file: ./abis/SLP.json
       eventHandlers:
-        - event: Transfer(address,address,indexed uint256)
+        - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/mapping.ts

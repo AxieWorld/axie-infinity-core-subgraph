@@ -1,6 +1,6 @@
 [
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "name",
     "outputs": [
@@ -9,12 +9,12 @@
         "type": "string"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_spender",
@@ -32,12 +32,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "totalSupply",
     "outputs": [
@@ -46,12 +46,12 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_dailyPotionLimit",
@@ -60,12 +60,12 @@
     ],
     "name": "setDailyPotionLimit",
     "outputs": [],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_amount",
@@ -99,12 +99,12 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
+    "payable": true,
     "stateMutability": "payable",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_from",
@@ -126,12 +126,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "decimals",
     "outputs": [
@@ -140,12 +140,12 @@
         "type": "uint8"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -159,12 +159,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "_owner",
@@ -182,21 +182,21 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [],
     "name": "unpause",
     "outputs": [],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_to",
@@ -214,12 +214,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_value",
@@ -233,12 +233,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "paused",
     "outputs": [
@@ -247,12 +247,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_removedMinters",
@@ -261,12 +261,12 @@
     ],
     "name": "removeMinters",
     "outputs": [],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "cappedSupply",
     "outputs": [
@@ -275,12 +275,12 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -294,12 +294,12 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_addedMinters",
@@ -308,12 +308,12 @@
     ],
     "name": "addMinters",
     "outputs": [],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_from",
@@ -331,21 +331,21 @@
         "type": "bool"
       }
     ],
-    "payable": true,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "pause",
-    "outputs": [],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "constant": false,
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -359,12 +359,12 @@
         "type": "address"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "dailyPotionLimit",
     "outputs": [
@@ -373,12 +373,12 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_newAdmin",
@@ -387,12 +387,12 @@
     ],
     "name": "changeAdmin",
     "outputs": [],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "symbol",
     "outputs": [
@@ -401,21 +401,21 @@
         "type": "string"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [],
     "name": "removeAdmin",
     "outputs": [],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_to",
@@ -433,12 +433,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "_addr",
@@ -452,12 +452,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_spender",
@@ -479,12 +479,12 @@
         "type": "bool"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_owner",
@@ -510,12 +510,12 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -533,12 +533,12 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
+    "constant": false,
     "inputs": [
       {
         "name": "_spender",
@@ -560,12 +560,12 @@
         "type": "bool"
       }
     ],
-    "payable": false,
+    "payable": true,
     "stateMutability": "payable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "admin",
     "outputs": [
@@ -574,7 +574,7 @@
         "type": "address"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
@@ -593,20 +593,20 @@
         "type": "uint256"
       }
     ],
-    "payable": true,
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_owner",
         "type": "address"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_amount",
         "type": "uint256"
       }
@@ -615,20 +615,20 @@
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_from",
         "type": "address"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_to",
         "type": "address"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "name": "_value",
         "type": "uint256"
       }
@@ -637,20 +637,20 @@
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_owner",
         "type": "address"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_spender",
         "type": "address"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "name": "_value",
         "type": "uint256"
       }
@@ -659,10 +659,10 @@
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_minter",
         "type": "address"
       }
@@ -671,10 +671,10 @@
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_minter",
         "type": "address"
       }
@@ -683,27 +683,27 @@
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [],
     "name": "Paused",
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [],
     "name": "Unpaused",
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_oldAdmin",
         "type": "address"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_newAdmin",
         "type": "address"
       }
@@ -712,10 +712,10 @@
     "type": "event"
   },
   {
-    "anonymous": true,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "_oldAdmin",
         "type": "address"
       }

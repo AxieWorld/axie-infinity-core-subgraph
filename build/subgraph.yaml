@@ -21,6 +21,6 @@ dataSources:
         - name: SLP
           file: axieworld/small-love-potion/abis/SLP.json
       eventHandlers:
-        - event: Transfer(address,address,indexed uint256)
+        - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: axieworld/small-love-potion/axieworld/small-love-potion.wasm
