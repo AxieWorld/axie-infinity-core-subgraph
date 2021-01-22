@@ -2,13 +2,13 @@ specVersion: 0.0.2
 description: SLP for Ethereum
 repository: https://github.com/AxieWorld/SLPSubgraph
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: axieworld/small-love-potion
     network: mainnet
     source:
-      address: '0x37236cd05b34cc79d3715af2383e96dd7443dcf1'
+      address: "0x37236cd05b34cc79d3715af2383e96dd7443dcf1"
       abi: SLP
       startBlock: 9130203
     mapping:
@@ -19,8 +19,8 @@ dataSources:
         - SLP
       abis:
         - name: SLP
-          file: ./abis/SLP.json
+          file: axieworld/small-love-potion/abis/SLP.json
       eventHandlers:
         - event: Transfer(address,address,indexed uint256)
           handler: handleTransfer
-      file: ./src/mapping.ts
+      file: axieworld/small-love-potion/axieworld/small-love-potion.wasm
