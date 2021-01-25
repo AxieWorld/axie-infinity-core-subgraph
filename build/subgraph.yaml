@@ -16,7 +16,9 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Transfer
+        - User
+        - TokenDataTotal
+        - TokenDataDay
       abis:
         - name: SLP
           file: axieworld/small-love-potion/abis/SLP.json

@@ -1,9 +1,23 @@
-type Transfer @entity {
+type User @entity {
   id: ID!
-  transactionHash: Bytes!
-  value: BigInt!
-  from: Bytes!
-  to: Bytes!
-  blockNumber: BigInt!
-  timestamp: BigInt!
+  balance: BigInt!
+  minted: BigInt!
+  burned: BigInt!
+  transactionCount: Int!
+}
+
+type TokenDataTotal @entity {
+  id: ID!
+  usersCount: Int!
+  supply: BigInt!
+  minted: BigInt!
+  burned: BigInt!
+}
+
+type TokenDataDay @entity {
+  id: ID!
+  date: Int!
+  supply: BigInt!
+  minted: BigInt!
+  burned: BigInt!
 }
