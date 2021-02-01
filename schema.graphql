@@ -1,23 +1,18 @@
 type User @entity {
   id: ID!
-  balance: BigInt!
-  minted: BigInt!
-  burned: BigInt!
-  transactionCount: Int!
+  axieCount: Int!
 }
 
-type TokenDataTotal @entity {
+type HoldersDataTotal @entity {
   id: ID!
   usersCount: Int!
-  supply: BigInt!
-  minted: BigInt!
-  burned: BigInt!
+  pastUsersCount: Int!
 }
 
-type TokenDataDay @entity {
+type HoldersDataDay @entity {
   id: ID!
   date: Int!
-  supply: BigInt!
-  minted: BigInt!
-  burned: BigInt!
+  newUsers: Int!
+  usersCount: Int!
+  pastUsersCount: Int!
 }

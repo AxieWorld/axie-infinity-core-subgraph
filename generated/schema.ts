@@ -42,44 +42,17 @@ export class User extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get balance(): BigInt {
-    let value = this.get("balance");
-    return value.toBigInt();
-  }
-
-  set balance(value: BigInt) {
-    this.set("balance", Value.fromBigInt(value));
-  }
-
-  get minted(): BigInt {
-    let value = this.get("minted");
-    return value.toBigInt();
-  }
-
-  set minted(value: BigInt) {
-    this.set("minted", Value.fromBigInt(value));
-  }
-
-  get burned(): BigInt {
-    let value = this.get("burned");
-    return value.toBigInt();
-  }
-
-  set burned(value: BigInt) {
-    this.set("burned", Value.fromBigInt(value));
-  }
-
-  get transactionCount(): i32 {
-    let value = this.get("transactionCount");
+  get axieCount(): i32 {
+    let value = this.get("axieCount");
     return value.toI32();
   }
 
-  set transactionCount(value: i32) {
-    this.set("transactionCount", Value.fromI32(value));
+  set axieCount(value: i32) {
+    this.set("axieCount", Value.fromI32(value));
   }
 }
 
-export class TokenDataTotal extends Entity {
+export class HoldersDataTotal extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -87,17 +60,17 @@ export class TokenDataTotal extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save TokenDataTotal entity without an ID");
+    assert(id !== null, "Cannot save HoldersDataTotal entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save TokenDataTotal entity with non-string ID. " +
+      "Cannot save HoldersDataTotal entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("TokenDataTotal", id.toString(), this);
+    store.set("HoldersDataTotal", id.toString(), this);
   }
 
-  static load(id: string): TokenDataTotal | null {
-    return store.get("TokenDataTotal", id) as TokenDataTotal | null;
+  static load(id: string): HoldersDataTotal | null {
+    return store.get("HoldersDataTotal", id) as HoldersDataTotal | null;
   }
 
   get id(): string {
@@ -118,35 +91,17 @@ export class TokenDataTotal extends Entity {
     this.set("usersCount", Value.fromI32(value));
   }
 
-  get supply(): BigInt {
-    let value = this.get("supply");
-    return value.toBigInt();
+  get pastUsersCount(): i32 {
+    let value = this.get("pastUsersCount");
+    return value.toI32();
   }
 
-  set supply(value: BigInt) {
-    this.set("supply", Value.fromBigInt(value));
-  }
-
-  get minted(): BigInt {
-    let value = this.get("minted");
-    return value.toBigInt();
-  }
-
-  set minted(value: BigInt) {
-    this.set("minted", Value.fromBigInt(value));
-  }
-
-  get burned(): BigInt {
-    let value = this.get("burned");
-    return value.toBigInt();
-  }
-
-  set burned(value: BigInt) {
-    this.set("burned", Value.fromBigInt(value));
+  set pastUsersCount(value: i32) {
+    this.set("pastUsersCount", Value.fromI32(value));
   }
 }
 
-export class TokenDataDay extends Entity {
+export class HoldersDataDay extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -154,17 +109,17 @@ export class TokenDataDay extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save TokenDataDay entity without an ID");
+    assert(id !== null, "Cannot save HoldersDataDay entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save TokenDataDay entity with non-string ID. " +
+      "Cannot save HoldersDataDay entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("TokenDataDay", id.toString(), this);
+    store.set("HoldersDataDay", id.toString(), this);
   }
 
-  static load(id: string): TokenDataDay | null {
-    return store.get("TokenDataDay", id) as TokenDataDay | null;
+  static load(id: string): HoldersDataDay | null {
+    return store.get("HoldersDataDay", id) as HoldersDataDay | null;
   }
 
   get id(): string {
@@ -185,30 +140,30 @@ export class TokenDataDay extends Entity {
     this.set("date", Value.fromI32(value));
   }
 
-  get supply(): BigInt {
-    let value = this.get("supply");
-    return value.toBigInt();
+  get newUsers(): i32 {
+    let value = this.get("newUsers");
+    return value.toI32();
   }
 
-  set supply(value: BigInt) {
-    this.set("supply", Value.fromBigInt(value));
+  set newUsers(value: i32) {
+    this.set("newUsers", Value.fromI32(value));
   }
 
-  get minted(): BigInt {
-    let value = this.get("minted");
-    return value.toBigInt();
+  get usersCount(): i32 {
+    let value = this.get("usersCount");
+    return value.toI32();
   }
 
-  set minted(value: BigInt) {
-    this.set("minted", Value.fromBigInt(value));
+  set usersCount(value: i32) {
+    this.set("usersCount", Value.fromI32(value));
   }
 
-  get burned(): BigInt {
-    let value = this.get("burned");
-    return value.toBigInt();
+  get pastUsersCount(): i32 {
+    let value = this.get("pastUsersCount");
+    return value.toI32();
   }
 
-  set burned(value: BigInt) {
-    this.set("burned", Value.fromBigInt(value));
+  set pastUsersCount(value: i32) {
+    this.set("pastUsersCount", Value.fromI32(value));
   }
 }

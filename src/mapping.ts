@@ -1,16 +1,33 @@
-import { Transfer } from '../generated/SLP/SLP'
-import { User, TokenDataTotal, TokenDataDay } from '../generated/schema'
-import { BigInt, log } from '@graphprotocol/graph-ts'
+import { Transfer } from '../generated/axie-core/AxieCore'
+import { User, HoldersDataTotal, HoldersDataDay } from '../generated/schema'
 
 const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
 
+// To do some distinction for marketplace?
+// const ADDRESS_MARKETPLACE = '0xf4985070ce32b6b1994329df787d1acc9a2dd9e2'
+
 function createUser(id: string): User {
   let user = new User(id);
-  user.balance = BigInt.fromI32(0)
-  user.minted = BigInt.fromI32(0)
-  user.burned = BigInt.fromI32(0)
-  user.transactionCount = 0
+  user.axieCount = 0
   return user
+}
+
+function createHoldersDataTotal(): HoldersDataTotal {
+  let holdersDataTotal = new HoldersDataTotal('singleton')
+  holdersDataTotal.usersCount = 0
+  holdersDataTotal.pastUsersCount = 0
+
+  return holdersDataTotal
+}
+
+function createHoldersDataDay(dayStartTimestamp: number, usersCount: number, pastUsersCount: number): HoldersDataDay {
+  let holdersDataDay = new HoldersDataDay(dayStartTimestamp.toString())
+  holdersDataDay.date = dayStartTimestamp as i32
+  holdersDataDay.newUsers = 0
+  holdersDataDay.usersCount = usersCount as i32
+  holdersDataDay.pastUsersCount = pastUsersCount as i32
+
+  return holdersDataDay
 }
 
 export function handleTransfer(event: Transfer): void {
@@ -19,82 +36,57 @@ export function handleTransfer(event: Transfer): void {
   let dayStartTimestamp = dayID * 86400
 
   // create total TokenData
-  let tokenDataTotal = TokenDataTotal.load('singleton')
-  if (tokenDataTotal == null) {
-    tokenDataTotal = new TokenDataTotal('singleton')
-    tokenDataTotal.supply = BigInt.fromI32(0)
-    tokenDataTotal.minted = BigInt.fromI32(0)
-    tokenDataTotal.burned = BigInt.fromI32(0)
-    tokenDataTotal.usersCount = 0
+  let holdersDataTotal = HoldersDataTotal.load('singleton')
+  if (holdersDataTotal == null) {
+    holdersDataTotal = createHoldersDataTotal()
   }
 
   // create daily TokenData
-  let tokenDataDay = TokenDataDay.load(dayStartTimestamp.toString())
-  if (tokenDataDay == null) {
-    tokenDataDay = new TokenDataDay(dayStartTimestamp.toString())
-    tokenDataDay.supply = BigInt.fromI32(0)
-    tokenDataDay.minted = BigInt.fromI32(0)
-    tokenDataDay.burned = BigInt.fromI32(0)
-    tokenDataDay.date = dayStartTimestamp
-  }
-
-  if (event.params._from.toHexString() == ADDRESS_ZERO) {
-    tokenDataDay.supply = tokenDataDay.supply + event.params._value
-    tokenDataDay.minted = tokenDataDay.minted + event.params._value
-  }
-
-  if (event.params._to.toHexString() == ADDRESS_ZERO) {
-    tokenDataDay.supply = tokenDataDay.supply - event.params._value
-    tokenDataDay.burned = tokenDataDay.burned + event.params._value
+  let holdersDataDay = HoldersDataDay.load(dayStartTimestamp.toString())
+  if (holdersDataDay == null) {
+    holdersDataDay = createHoldersDataDay(dayStartTimestamp, holdersDataTotal.usersCount, holdersDataTotal.pastUsersCount)
   }
 
   // handle user from, ignore 0x
   if (event.params._from.toHexString() != ADDRESS_ZERO) {
-
     let userFrom = User.load(event.params._from.toHex())
     
     if (userFrom == null) {
       userFrom = createUser(event.params._from.toHex())
-      tokenDataTotal.usersCount = tokenDataTotal.usersCount + 1
+      holdersDataDay.newUsers = holdersDataDay.newUsers + 1
+      holdersDataDay.usersCount = holdersDataDay.usersCount + 1
+      holdersDataDay.pastUsersCount = holdersDataDay.pastUsersCount + 1
     }
 
-    userFrom.balance = userFrom.balance - event.params._value
-    userFrom.transactionCount = userFrom.transactionCount + 1
+    userFrom.axieCount = userFrom.axieCount - 1
 
-    // check if SLP was burned
-    if (event.params._to.toHexString() == ADDRESS_ZERO) {
-      userFrom.burned = userFrom.burned + event.params._value
+    if (userFrom.axieCount == 0) {
+      holdersDataDay.usersCount = holdersDataDay.usersCount - 1
     }
 
     userFrom.save()
   }
 
-
-  // handle user from, ignore 0x
+  // handle user to, ignore 0x
   if (event.params._to.toHexString() != ADDRESS_ZERO) {
-
     let userTo = User.load(event.params._to.toHex())
+
     if (userTo == null) {
       userTo = createUser(event.params._to.toHex())
-      tokenDataTotal.usersCount = tokenDataTotal.usersCount + 1
+      holdersDataDay.newUsers = holdersDataDay.newUsers + 1
+      holdersDataDay.usersCount = holdersDataDay.usersCount + 1
+      holdersDataDay.usersCount = holdersDataDay.usersCount + 1
     }
 
-    userTo.balance = userTo.balance + event.params._value
-    userTo.transactionCount = userTo.transactionCount + 1
-    
-    // check if SLP was minted
-    if (event.params._from.toHexString() == ADDRESS_ZERO) {
-      userTo.minted = userTo.minted + event.params._value
-    }
-    
+    userTo.axieCount = userTo.axieCount + 1
+
     userTo.save()
   }
 
-  // save and accumulate TokenData
-  tokenDataDay.save()
+  // save and accumulate HoldersData
+  holdersDataDay.save()
 
-  tokenDataTotal.supply = tokenDataTotal.supply + tokenDataDay.supply 
-  tokenDataTotal.minted = tokenDataTotal.minted + tokenDataDay.minted
-  tokenDataTotal.burned = tokenDataTotal.burned + tokenDataDay.burned
-  tokenDataTotal.save()
+  holdersDataTotal.usersCount = holdersDataTotal.usersCount + holdersDataDay.usersCount 
+  holdersDataTotal.pastUsersCount = holdersDataTotal.pastUsersCount + holdersDataDay.pastUsersCount
+  holdersDataTotal.save()
 }
