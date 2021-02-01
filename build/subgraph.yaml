@@ -17,6 +17,8 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - User
+        - HoldersDataTotal
+        - HoldersDataDay
       abis:
         - name: AxieCore
           file: axie-core/abis/AxieCore.json

@@ -1,5 +1,6 @@
 import { Transfer } from '../generated/axie-core/AxieCore'
 import { User, HoldersDataTotal, HoldersDataDay } from '../generated/schema'
+import { BigInt, log } from '@graphprotocol/graph-ts'
 
 const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
 
@@ -20,16 +21,6 @@ function createHoldersDataTotal(): HoldersDataTotal {
   return holdersDataTotal
 }
 
-function createHoldersDataDay(dayStartTimestamp: number, usersCount: number, pastUsersCount: number): HoldersDataDay {
-  let holdersDataDay = new HoldersDataDay(dayStartTimestamp.toString())
-  holdersDataDay.date = dayStartTimestamp as i32
-  holdersDataDay.newUsers = 0
-  holdersDataDay.usersCount = usersCount as i32
-  holdersDataDay.pastUsersCount = pastUsersCount as i32
-
-  return holdersDataDay
-}
-
 export function handleTransfer(event: Transfer): void {
   let timestamp = event.block.timestamp.toI32()
   let dayID = timestamp / 86400
@@ -44,9 +35,13 @@ export function handleTransfer(event: Transfer): void {
   // create daily TokenData
   let holdersDataDay = HoldersDataDay.load(dayStartTimestamp.toString())
   if (holdersDataDay == null) {
-    holdersDataDay = createHoldersDataDay(dayStartTimestamp, holdersDataTotal.usersCount, holdersDataTotal.pastUsersCount)
+    let holdersDataDay = new HoldersDataDay(dayStartTimestamp.toString())
+    holdersDataDay.date = dayStartTimestamp
+    holdersDataDay.newUsers = 0
+    holdersDataDay.usersCount = holdersDataTotal.usersCount
+    holdersDataDay.pastUsersCount = holdersDataTotal.pastUsersCount
   }
-
+  
   // handle user from, ignore 0x
   if (event.params._from.toHexString() != ADDRESS_ZERO) {
     let userFrom = User.load(event.params._from.toHex())
