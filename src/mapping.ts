@@ -47,7 +47,8 @@ export function handleTransfer(event: Transfer): void {
   }
 
   // log date
-  log.warning('hey date, {}', [holdersDataDay.id.toString()])
+  log.warning('hey date, {}', [holdersDataDay.id])
+  log.warning('hey date, {}', [holdersDataDay.id])
   log.warning('hey users, {}', [holdersDataDay.usersCount.toString()])
   log.warning('hey past users, {}', [holdersDataDay.pastUsersCount.toString()])
   log.warning('hey new users, {}', [holdersDataDay.newUsers.toString()])
