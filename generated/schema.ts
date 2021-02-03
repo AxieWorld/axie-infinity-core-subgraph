@@ -42,13 +42,13 @@ export class User extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get axieCount(): BigInt {
+  get axieCount(): i32 {
     let value = this.get("axieCount");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set axieCount(value: BigInt) {
-    this.set("axieCount", Value.fromBigInt(value));
+  set axieCount(value: i32) {
+    this.set("axieCount", Value.fromI32(value));
   }
 }
 
@@ -82,22 +82,22 @@ export class HoldersDataTotal extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get usersCount(): BigInt {
+  get usersCount(): i32 {
     let value = this.get("usersCount");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set usersCount(value: BigInt) {
-    this.set("usersCount", Value.fromBigInt(value));
+  set usersCount(value: i32) {
+    this.set("usersCount", Value.fromI32(value));
   }
 
-  get pastUsersCount(): BigInt {
+  get pastUsersCount(): i32 {
     let value = this.get("pastUsersCount");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set pastUsersCount(value: BigInt) {
-    this.set("pastUsersCount", Value.fromBigInt(value));
+  set pastUsersCount(value: i32) {
+    this.set("pastUsersCount", Value.fromI32(value));
   }
 }
 
@@ -140,30 +140,39 @@ export class HoldersDataDay extends Entity {
     this.set("date", Value.fromI32(value));
   }
 
-  get newUsers(): BigInt {
+  get newUsers(): i32 {
     let value = this.get("newUsers");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set newUsers(value: BigInt) {
-    this.set("newUsers", Value.fromBigInt(value));
+  set newUsers(value: i32) {
+    this.set("newUsers", Value.fromI32(value));
   }
 
-  get usersCount(): BigInt {
+  get newPastUsers(): i32 {
+    let value = this.get("newPastUsers");
+    return value.toI32();
+  }
+
+  set newPastUsers(value: i32) {
+    this.set("newPastUsers", Value.fromI32(value));
+  }
+
+  get usersCount(): i32 {
     let value = this.get("usersCount");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set usersCount(value: BigInt) {
-    this.set("usersCount", Value.fromBigInt(value));
+  set usersCount(value: i32) {
+    this.set("usersCount", Value.fromI32(value));
   }
 
-  get pastUsersCount(): BigInt {
+  get pastUsersCount(): i32 {
     let value = this.get("pastUsersCount");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set pastUsersCount(value: BigInt) {
-    this.set("pastUsersCount", Value.fromBigInt(value));
+  set pastUsersCount(value: i32) {
+    this.set("pastUsersCount", Value.fromI32(value));
   }
 }

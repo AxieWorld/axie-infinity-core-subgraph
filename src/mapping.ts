@@ -9,14 +9,14 @@ const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
 
 function createUser(id: string): User {
   let user = new User(id);
-  user.axieCount = BigInt.fromI32(0)
+  user.axieCount = 0
   return user
 }
 
 function createHoldersDataTotal(): HoldersDataTotal {
   let holdersDataTotal = new HoldersDataTotal('singleton')
-  holdersDataTotal.usersCount = BigInt.fromI32(0)
-  holdersDataTotal.pastUsersCount = BigInt.fromI32(0)
+  holdersDataTotal.usersCount = 0
+  holdersDataTotal.pastUsersCount = 0
 
   return holdersDataTotal
 }
@@ -25,33 +25,25 @@ export function handleTransfer(event: Transfer): void {
   let timestamp = event.block.timestamp.toI32()
   let dayID = timestamp / 86400
   let dayStartTimestamp = dayID * 86400
+  let newUsers = 0;
+  let newPastUsers = 0;
 
   // create total TokenData
   let holdersDataTotal = HoldersDataTotal.load('singleton')
   if (holdersDataTotal == null) {
-    log.warning('create new total', [])
     holdersDataTotal = createHoldersDataTotal()
-    log.warning('finish new total', [])
   }
 
   // create daily TokenData
   let holdersDataDay = HoldersDataDay.load(dayStartTimestamp.toString())
   if (holdersDataDay == null) {
-    let holdersDataDay = new HoldersDataDay(dayStartTimestamp.toString())
-    log.warning('create new date', [])
+    holdersDataDay = new HoldersDataDay(dayStartTimestamp.toString())
     holdersDataDay.date = dayStartTimestamp
-    holdersDataDay.newUsers = BigInt.fromI32(0)
-    holdersDataDay.usersCount = holdersDataTotal.usersCount
-    holdersDataDay.pastUsersCount = holdersDataTotal.pastUsersCount
-    log.warning('finish new date', [])
+    holdersDataDay.newUsers = 0
+    holdersDataDay.newPastUsers = 0
+    holdersDataDay.usersCount = 0
+    holdersDataDay.pastUsersCount = 0
   }
-
-  // log date
-  log.warning('hey date, {}', [holdersDataDay.id])
-  log.warning('hey date, {}', [holdersDataDay.id])
-  log.warning('hey users, {}', [holdersDataDay.usersCount.toString()])
-  log.warning('hey past users, {}', [holdersDataDay.pastUsersCount.toString()])
-  log.warning('hey new users, {}', [holdersDataDay.newUsers.toString()])
 
   // handle user from, ignore 0x
   if (event.params._from.toHexString() != ADDRESS_ZERO) {
@@ -59,15 +51,14 @@ export function handleTransfer(event: Transfer): void {
     
     if (userFrom == null) {
       userFrom = createUser(event.params._from.toHex())
-      holdersDataDay.newUsers = holdersDataDay.newUsers.plus(BigInt.fromI32(1))
-      holdersDataDay.usersCount = holdersDataDay.usersCount.plus(BigInt.fromI32(1))
-      holdersDataDay.pastUsersCount = holdersDataDay.pastUsersCount.plus(BigInt.fromI32(1))
+      newUsers = newUsers + 1
+      newPastUsers = newPastUsers + 1
     }
 
-    userFrom.axieCount = userFrom.axieCount.minus(BigInt.fromI32(1))
+    userFrom.axieCount = userFrom.axieCount - 1
 
-    if (userFrom.axieCount.equals(BigInt.fromI32(0))) {
-      holdersDataDay.usersCount = holdersDataDay.usersCount.minus(BigInt.fromI32(1))
+    if (userFrom.axieCount == 0) {
+      newUsers = newUsers - 1
     }
 
     userFrom.save()
@@ -78,26 +69,29 @@ export function handleTransfer(event: Transfer): void {
     let userTo = User.load(event.params._to.toHex())
 
     if (userTo == null) {
-      // log.warning('hey 1, {}', ['before create'])
       userTo = createUser(event.params._to.toHex())
-      // log.warning('hey 1, {}', ['after create'])
-      // log.warning('hey 1, {}', [holdersDataDay.id])
-      holdersDataDay.newUsers = holdersDataDay.newUsers.plus(BigInt.fromI32(1))
-      // log.warning('hey 1, {}', ['new create'])
-      holdersDataDay.usersCount = holdersDataDay.usersCount.plus(BigInt.fromI32(1))
-      holdersDataDay.usersCount = holdersDataDay.usersCount.plus(BigInt.fromI32(1))
+      newUsers = newUsers + 1
+      newPastUsers = newPastUsers + 1
     }
 
-    userTo.axieCount = userTo.axieCount.plus(BigInt.fromI32(1))
+    userTo.axieCount = userTo.axieCount +1
 
     userTo.save()
   }
 
-  log.warning('save, {} {}', [event.transactionLogIndex.toString(), event.params._to.toHex()])
   // save and accumulate HoldersData
-  holdersDataDay.save()
 
-  holdersDataTotal.usersCount = holdersDataTotal.usersCount.plus(holdersDataDay.usersCount)
-  holdersDataTotal.pastUsersCount = holdersDataTotal.pastUsersCount.plus(holdersDataDay.pastUsersCount)
+  // log.warning('data day {} {}', [BigInt.fromI32(holdersDataDay.newUsers).toString(), BigInt.fromI32(holdersDataDay.newPastUsers).toString()])
+  
+  holdersDataDay.newUsers = holdersDataDay.newUsers + newUsers
+  holdersDataDay.newPastUsers = holdersDataDay.newPastUsers + newPastUsers
+  holdersDataDay.usersCount = holdersDataTotal.usersCount + newUsers
+  holdersDataDay.pastUsersCount = holdersDataTotal.pastUsersCount + newPastUsers
+  holdersDataDay.save()
+  
+  holdersDataTotal.usersCount = holdersDataTotal.usersCount + newUsers
+  holdersDataTotal.pastUsersCount = holdersDataTotal.pastUsersCount + newPastUsers
   holdersDataTotal.save()
+
+  // log.warning('data total {} {}', [BigInt.fromI32(holdersDataTotal.usersCount).toString(), BigInt.fromI32(holdersDataTotal.pastUsersCount).toString()])
 }

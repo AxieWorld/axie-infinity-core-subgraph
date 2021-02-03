@@ -1,18 +1,19 @@
 type User @entity {
   id: ID!
-  axieCount: BigInt!
+  axieCount: Int!
 }
 
 type HoldersDataTotal @entity {
   id: ID!
-  usersCount: BigInt!
-  pastUsersCount: BigInt!
+  usersCount: Int!
+  pastUsersCount: Int!
 }
 
 type HoldersDataDay @entity {
   id: ID!
   date: Int!
-  newUsers: BigInt!
-  usersCount: BigInt!
-  pastUsersCount: BigInt!
+  newUsers: Int!
+  newPastUsers: Int!
+  usersCount: Int!
+  pastUsersCount: Int!
 }
